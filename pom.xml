@@ -18,6 +18,9 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <spring.version>5.2.5.RELEASE</spring.version>
+    <slf4j-api.version>1.7.22</slf4j-api.version>
+    <logback.version>1.1.8</logback.version>
+    <lombok.version>1.18.12</lombok.version>
   </properties>
 
   <dependencies>
@@ -35,8 +38,43 @@
     <!--IOC容器-->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
+      <artifactId>spring-context-support</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+
+    <!--lombok-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!--logback 日志-->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>logback-core</artifactId>
+          <groupId>ch.qos.logback</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j-api.version}</version>
     </dependency>
 
 
