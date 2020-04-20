@@ -21,6 +21,10 @@
     <slf4j-api.version>1.7.22</slf4j-api.version>
     <logback.version>1.1.8</logback.version>
     <lombok.version>1.18.12</lombok.version>
+    <mysql.version>5.1.6</mysql.version>
+    <mybatis.version>3.4.2</mybatis.version>
+    <spring.mybatis.version>1.3.1</spring.mybatis.version>
+    <druid.version>1.0.15</druid.version>
   </properties>
 
   <dependencies>
@@ -38,8 +42,33 @@
     <!--IOC容器-->
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-context-support</artifactId>
+      <artifactId>spring-context</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+
+    <!--mybatis 整合spring的适配包-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${spring.mybatis.version}</version>
+    </dependency>
+    <!--mybatis 包-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.version}</version>
+    </dependency>
+    <!--阿里巴巴连接池-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>${druid.version}</version>
     </dependency>
 
     <!--lombok-->
@@ -76,7 +105,12 @@
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j-api.version}</version>
     </dependency>
-
+    <!--mysql 数据驱动-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
