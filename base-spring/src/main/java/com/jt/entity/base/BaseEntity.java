@@ -2,7 +2,8 @@ package com.jt.entity.base;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * @ClassName BaseEntity

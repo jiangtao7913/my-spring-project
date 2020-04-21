@@ -11,4 +11,6 @@ import com.jt.entity.User;
 public interface UserService {
 
     User findUserById();
+
+    void insertUser(User user);
 }

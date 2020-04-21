@@ -21,4 +21,6 @@ public interface UserMapper {
     User findUserById(@Param("id")Integer userId);
 
     List<User> findByUser(User user);
+
+    int insertUser(User user);
 }

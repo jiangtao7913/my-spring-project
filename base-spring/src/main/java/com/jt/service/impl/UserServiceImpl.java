@@ -23,6 +23,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserById(1);
     }
 
+    @Override
+    public void insertUser(User user) {
+        userMapper.insertUser(user);
+    }
 
 
 }

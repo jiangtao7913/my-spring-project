@@ -1,9 +1,11 @@
 package com.jt.service.impl;
 
+import com.jt.entity.User;
 import com.jt.service.UserService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
+import java.util.Date;
 
 /**
  * @ClassName Test
@@ -17,9 +19,19 @@ public class Test {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context =  new ClassPathXmlApplicationContext("classpath:application.xml");
-        DataSource  dataSource = (DataSource) context.getBean("dataSource");
+        //DataSource  dataSource = (DataSource) context.getBean("dataSource");
         UserService userService = (UserService) context.getBean("userService");
+        User user = new User();
+        user.setName("jiangtao");
+        user.setAge(26);
+        user.setSex(1);
+        user.setLocation("深圳市南山区");
+        user.setCreateUser(1);
+        user.setCreateDate(new Date());
+        user.setUpdateUser(1);
+        user.setUpdateDate(new Date());
+        userService.insertUser(user);
 
-        userService.findUserById();
+        User user1 = userService.findUserById();
     }
 }

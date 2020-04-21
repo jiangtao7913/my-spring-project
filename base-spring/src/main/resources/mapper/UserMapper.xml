@@ -3,13 +3,19 @@
 <mapper namespace="com.jt.dal.mapper.UserMapper">
 
 
-    <select id="findUserById" parameterType="Integer" resultType="com.jt.entity.User">
+    <select id="findUserById" parameterType="java.lang.Integer" resultType="User">
         SELECT * FROM USER WHERE ID = #{id}
     </select>
+
 
     <select id="findByUser" parameterType="com.jt.entity.User" resultType="com.jt.entity.User">
         SELECT * FROM USER WHERE
         NAME = #{name}
     </select>
+
+    <insert id="insertUser" parameterType="User">
+        insert into user(name,age,sex,location,CREATE_DATE,CREATE_USER,UPDATE_DATE,UPDATE_USER)
+        values (#{name},#{age},#{sex},#{location},#{createDate},#{createUser},#{updateDate},#{updateUser})
+    </insert>
 
 </mapper>
