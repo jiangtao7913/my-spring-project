@@ -15,6 +15,7 @@ CREATE TABLE USER
 )ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 
+
 -- mysql 忽略大小写
 1.查看:SHOW VARIABLES LIKE '%case%';
 2.vi /etc/mysql/my.cnf 添加 lower_case_table_names=1
