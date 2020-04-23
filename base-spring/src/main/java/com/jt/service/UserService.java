@@ -1,5 +1,6 @@
 package com.jt.service;
 
+import com.jt.common.annotation.DataSource;
 import com.jt.entity.User;
 
 /**
@@ -10,6 +11,7 @@ import com.jt.entity.User;
  **/
 public interface UserService {
 
+    @DataSource("slave")
     User findUserById();
 
     void insertUser(User user);

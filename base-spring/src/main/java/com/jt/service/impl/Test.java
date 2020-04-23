@@ -2,6 +2,7 @@ package com.jt.service.impl;
 
 import com.jt.entity.User;
 import com.jt.service.UserService;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
@@ -30,8 +31,9 @@ public class Test {
         user.setCreateDate(new Date());
         user.setUpdateUser(1);
         user.setUpdateDate(new Date());
-        userService.insertUser(user);
+        //userService.insertUser(user);
 
         User user1 = userService.findUserById();
+        System.out.println(user1.getName());
     }
 }

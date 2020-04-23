@@ -15,7 +15,7 @@
         <property name="dataSource" ref="dataSource" /><!-- ref:引入数据源  -->
     </bean>
     <!--使用注释事务 -->
-    <tx:annotation-driven  transaction-manager="transactionManager" />
+    <tx:annotation-driven  transaction-manager="transactionManager" order="1" proxy-target-class="true"/>
 
     <!--配置注解扫描包 @Service @Component -->
     <context:component-scan base-package="com.jt.**"/>
@@ -32,7 +32,7 @@
 
     <!--mybatis 配置-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="dynamicDatasource"/>
         <!--sql映射文件路径-->
         <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
         <!--别名-->
