@@ -3,8 +3,11 @@ package com.jt.service.impl;
 import com.jt.dal.mapper.UserMapper;
 import com.jt.entity.User;
 import com.jt.service.UserService;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @ClassName UserServiceImpl
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @Date 2020/4/20/0020
  **/
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, InitializingBean {
 
     @Autowired
     private UserMapper userMapper;
@@ -29,4 +32,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("实例化userService-------");
+    }
+
+    @PostConstruct
+    public void init(){
+        System.out.println("1111111111111");
+    }
 }
