@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+     <mvc:annotation-driven />
+
+    <!--设置扫描bean的范围-->
+     <context:component-scan base-package="com.jt.**" use-default-filters="false">
+        <context:include-filter expression="com.jt.controller.test.IngoreAnnotation" type="annotation"/>
+     </context:component-scan>
+
+    <!--配置文件上传解析器
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>-->
+
+    <!-- 对静态资源文件的访问 -->
+    <mvc:resources mapping="/pic/**" location="/static/images/" />
+
+</beans>
