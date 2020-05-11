@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--配置属性文件-->
+    <context:property-placeholder location="classpath:application.properties" />
+
+    <!--主数据源配置-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}" />
+        <!-- 连接池最大空闲
+        <property name="maxIdle" value="${maxIdle}" /> -->
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}" />
+        <property name="validationQuery" value="${validationQuery}" />
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}" />
+        <!-- 监控数据库 -->
+        <property name="filters" value="${filters}" />
+    </bean>
+
+    <!--从数据源配置-->
+    <bean id="slaveDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${slave.driverClassName}" />
+        <property name="url" value="${slave.url}" />
+        <property name="username" value="${slave.username}" />
+        <property name="password" value="${slave.password}" />
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${slave.initialSize}" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${slave.maxActive}" />
+        <!-- 连接池最大空闲
+        <property name="maxIdle" value="${maxIdle}" /> -->
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${slave.minIdle}" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${slave.maxWait}" />
+        <property name="validationQuery" value="${slave.validationQuery}" />
+        <property name="testOnBorrow" value="${slave.testOnBorrow}" />
+        <property name="testOnReturn" value="${slave.testOnReturn}" />
+        <property name="testWhileIdle" value="${slave.testWhileIdle}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${slave.timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${slave.minEvictableIdleTimeMillis}" />
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="${slave.removeAbandoned}" />
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${slave.removeAbandonedTimeout}" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${slave.logAbandoned}" />
+        <!-- 监控数据库 -->
+        <property name="filters" value="${slave.filters}" />
+    </bean>
+
+    <!--动态数据源配置-->
+    <bean id="dynamicDatasource" class="com.jt.common.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="master" value-ref="dataSource"/>
+                <entry key="slave" value-ref="slaveDataSource"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置切面-->
+    <bean id="dataSourceAspect" class="com.jt.common.aspect.DataSourceAspect"/>
+    <aop:config proxy-target-class="true">
+        <aop:aspect id="dataSourceAspect" ref="dataSourceAspect" order="2">
+            <aop:pointcut id="tx" expression="execution(* com.jt.service..**.*())"/>
+            <aop:before method="before" pointcut-ref="tx"/>
+        </aop:aspect>
+    </aop:config>
+
+
+</beans>
