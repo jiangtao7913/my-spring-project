@@ -9,7 +9,7 @@
     <context:property-placeholder location="classpath:application.properties" />
 
     <!--主数据源配置-->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean id="dataSource" class="com.jt.common.SecurityDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${db.driverClassName}" />
         <property name="url" value="${db.url}" />
         <property name="username" value="${db.username}" />
@@ -43,7 +43,7 @@
     </bean>
 
     <!--从数据源配置-->
-    <bean id="slaveDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean id="slaveDataSource" class="com.jt.common.SecurityDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${slave.driverClassName}" />
         <property name="url" value="${slave.url}" />
         <property name="username" value="${slave.username}" />
