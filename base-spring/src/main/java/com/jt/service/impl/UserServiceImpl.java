@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 
@@ -30,8 +31,15 @@ public class UserServiceImpl implements UserService, InitializingBean {
     }
 
     @Override
-    public void insertUser(User user) {
-        userMapper.insertUser(user);
+    public User insertUser1() {
+        return userMapper.findUserById(1);
+    }
+
+    @Override
+    @Transactional
+    public int insertUser(User user) {
+        log.debug("测试日志打印");
+        return userMapper.insertUser(user);
     }
 
 

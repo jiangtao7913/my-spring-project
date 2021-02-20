@@ -35,7 +35,7 @@ public class DataSourceAspect {
                 DataSource data = m.getAnnotation(DataSource.class);
                 System.out.println("用户选择数据库库类型：" + data.value());
                 // 数据源放到当前线程中
-                HandleDataSource.putDataSource(data.value());
+                HandleDataSource.putDataSource(data.value().getDesc());
             }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
