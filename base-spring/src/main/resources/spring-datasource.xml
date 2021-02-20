@@ -91,7 +91,7 @@
     <bean id="dataSourceAspect" class="com.jt.common.aspect.DataSourceAspect"/>
     <aop:config proxy-target-class="true">
         <aop:aspect id="dataSourceAspect" ref="dataSourceAspect" order="2">
-            <aop:pointcut id="tx" expression="execution(* com.jt.service..**.*())"/>
+            <aop:pointcut id="tx" expression="execution(* com.jt.service.*.*(..))"/>
             <aop:before method="before" pointcut-ref="tx"/>
         </aop:aspect>
     </aop:config>
